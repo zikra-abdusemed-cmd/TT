@@ -1,4 +1,4 @@
-const apiUrl: string = 'http://localhost:3000/questions'; // Base API URL
+const apiUrl: string = 'https://tt-production-0f24.up.railway.app/questions'; // Base API URL
 
 // Interface for Question type
 interface Question {
