@@ -8,7 +8,7 @@ async function bootstrap() {
     const allowedOrigins = [
         'http://localhost:3000', // Local development
         'http://127.0.0.1:5501', // Local static hosting
-        'https://thrivestrivia.netlify.app', // Deployed frontend (no trailing slash)
+        'https://thrivestrivia.vercel.app/home.html', // Deployed frontend (no trailing slash)
     ];
     app.enableCors({
         origin: (origin, callback) => {
