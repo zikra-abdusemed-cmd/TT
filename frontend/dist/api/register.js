@@ -24,7 +24,7 @@ registerForm.addEventListener('submit', function(e) {
         password: password
     };
       // Make a POST request to the backend to register the user
-      fetch('http://localhost:3000/auth/register',{ //http://localhost:3000/auth/register
+      fetch('http://tt-production-0f24.up.railway.app/auth/register',{ //http://localhost:3000/auth/register
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
