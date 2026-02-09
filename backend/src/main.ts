@@ -8,7 +8,7 @@ async function bootstrap() {
     const allowedOrigins = [
         'http://localhost:3000', // Local development
         'https://lm02th78-3000.uks1.devtunnels.ms', // Replace with your actual forwarded URL
-        'http://127.0.0.1:5501'
+        'https://thrivestrivia.netlify.app/'
     ];
     app.enableCors({
         origin: (origin, callback) => {
