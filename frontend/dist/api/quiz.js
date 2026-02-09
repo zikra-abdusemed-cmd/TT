@@ -1,14 +1,19 @@
 async function fetchQuestions() {
     try {
-        const response = await fetch('http://tt-production-0f24.up.railway.app/questions');//http://localhost:3000/questions
+        const response = await fetch('https://tt-production-0f24.up.railway.app/questions');//http://localhost:3000/questions
         if (!response.ok) {
-            throw new Error('Failed to fetch questions');
+            const errorText = await response.text();
+            console.error('Response error:', response.status, errorText);
+            throw new Error(`Failed to fetch questions: ${response.status} ${errorText}`);
         }
         const questions = await response.json();
         displayQuestions(questions);
     } catch (error) {
         console.error('Error fetching questions:', error);
-        document.getElementById('questions').innerHTML = '<p class="text-danger">Error loading questions. Please try again later.</p>';
+        const questionsContainer = document.getElementById('questions');
+        if (questionsContainer) {
+            questionsContainer.innerHTML = '<p class="text-danger">Error loading questions. Please check the console for details.</p>';
+        }
     }
 }
 
