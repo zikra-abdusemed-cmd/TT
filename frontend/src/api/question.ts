@@ -26,7 +26,7 @@ interface QuestionPayload {
 // Function to Create a New Question
 export async function createQuestion(payload: QuestionPayload): Promise<void> {
     try {
-        const response = await fetch('https://localhost:3000/questions', {
+        const response = await fetch('https://tt-production-0f24.up.railway.app/questions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export async function createQuestion(payload: QuestionPayload): Promise<void> {
 // Function to Fetch a Question by ID
 export async function fetchQuestionById(id: string): Promise<void> {
     try {
-        const response = await fetch(`https://localhost:3000/questions/${id}`, {
+        const response = await fetch(`https://tt-production-0f24.up.railway.app/questions/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export async function updateQuestion(id: string): Promise<void> {
     };
 
     try {
-        const response = await fetch(`https://localhost:3000/questions/${id}`, {
+        const response = await fetch(`https://tt-production-0f24.up.railway.app/questions/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export async function updateQuestion(id: string): Promise<void> {
 // Function to Delete a Question by ID
 export async function deleteQuestionById(id: string): Promise<void> {
     try {
-        const response = await fetch(`https://localhost:3000/questions/${id}`, {
+        const response = await fetch(`https://tt-production-0f24.up.railway.app/questions/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

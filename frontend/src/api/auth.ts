@@ -9,7 +9,7 @@ export async function handleRegistration(event: Event) {
     const payload = { name, email, password };
 
     try {
-        const response = await fetch('https://localhost:3000/auth/register', {
+        const response = await fetch('https://tt-production-0f24.up.railway.app/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export async function handleUserLogin(event: Event) {
     const payload = { username, password };
 
     try {
-        const response = await fetch('https://localhost:3000/auth/login', {
+        const response = await fetch('https://tt-production-0f24.up.railway.app/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export async function handleAdminLogin(event: Event) {
     const payload = { username, password };
 
     try {
-        const response = await fetch('https://localhost:3000/auth/login', {
+        const response = await fetch('https://tt-production-0f24.up.railway.app/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

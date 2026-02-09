@@ -19,8 +19,8 @@ form.addEventListener('submit', (e: Event) => {
         return;
     }
 
-    // Make a POST request to the backend for login
-    fetch('https://lm02th78-3000.uks1.devtunnels.ms/auth/login', {
+    // Make a POST request to the deployed backend for login
+    fetch('https://tt-production-0f24.up.railway.app/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
