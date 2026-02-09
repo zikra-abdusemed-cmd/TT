@@ -7,8 +7,8 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const allowedOrigins = [
         'http://localhost:3000', // Local development
-        'https://lm02th78-3000.uks1.devtunnels.ms', // Replace with your actual forwarded URL
-        'https://thrivestrivia.netlify.app/'
+        'http://127.0.0.1:5501', // Local static hosting
+        'https://thrivestrivia.netlify.app', // Deployed frontend (no trailing slash)
     ];
     app.enableCors({
         origin: (origin, callback) => {
