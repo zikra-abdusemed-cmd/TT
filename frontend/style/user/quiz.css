@@ -1,0 +1,88 @@
+body{
+    background: url('../../image/bg1.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+}
+/* Header Styling */
+header {
+    background: linear-gradient(to right, #3d2c47, #af7fcb);
+    color: white;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 1);
+
+}
+
+/* Sidebar Styling */
+.side-bar {
+    width: 300px;
+    background: linear-gradient(to bottom, lavender, #3d2c47);
+    height: auto;
+    text-align: center;
+}
+
+.side-bar img {
+    width: 120px;
+    height: 120px;
+}
+
+.side-bar a {
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.side-bar a:hover {
+    color: lavender;
+}
+
+
+/* Timer styling */
+
+
+/* Main container styling */
+.container {
+    max-width: 700px;
+    height: auto;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 1);
+    margin: 20px auto;
+    position: relative;
+    top: 150px;
+    left:60px;
+    background-color:white;
+    
+}
+
+/* Question styling */
+.question {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    
+}
+
+/* Choices layout */
+.choices {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+/* Choice button styling */
+.choice-style {
+    background-color: #3d2c47;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 80px; /* Adjusted for better alignment */
+    width: 150px;
+    height: 80px;
+    font-size: 1rem;
+    font-weight: bold;
+    color:white;
+    cursor: pointer;
+    box-shadow: 0px 6px 9px rgba(0, 0, 0, 1);
+}
+
+.choice-style:hover {
+    background-color: #af7fcb;
+    color: #3d2c47;
+}
