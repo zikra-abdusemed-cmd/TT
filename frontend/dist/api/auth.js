@@ -26,7 +26,7 @@ function handleRegistration(event) {
         const password = document.getElementById('password').value;
         const payload = { name, email, password };
         try {
-            const response = yield fetch('https://localhost:3000/auth/register', {
+            const response = yield fetch('https://tt-production-0f24.up.railway.app/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function handleUserLogin(event) {
         const password = document.getElementById('loginPassword').value;
         const payload = { username, password };
         try {
-            const response = yield fetch('https://localhost:3000/auth/login', {
+            const response = yield fetch('https://tt-production-0f24.up.railway.app/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ function handleAdminLogin(event) {
         const password = document.getElementById('loginPassword').value;
         const payload = { username, password };
         try {
-            const response = yield fetch('https://localhost:3000/auth/login', {
+            const response = yield fetch('https://tt-production-0f24.up.railway.app/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
