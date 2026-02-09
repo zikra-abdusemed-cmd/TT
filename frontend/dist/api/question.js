@@ -17,7 +17,7 @@ exports.deleteQuestionById = deleteQuestionById;
 function createQuestion(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch('https://localhost:3000/questions', {
+            const response = yield fetch('https://tt-production-0f24.up.railway.app/questions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ function createQuestion(payload) {
 function fetchQuestionById(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch(`https://localhost:3000/questions/${id}`, {
+            const response = yield fetch(`https://tt-production-0f24.up.railway.app/questions/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ function updateQuestion(id) {
             answer: document.getElementById('answer').value,
         };
         try {
-            const response = yield fetch(`https://localhost:3000/questions/${id}`, {
+            const response = yield fetch(`https://tt-production-0f24.up.railway.app/questions/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
