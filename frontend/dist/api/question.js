@@ -117,7 +117,7 @@ function updateQuestion(id) {
 function deleteQuestionById(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield fetch(`https://localhost:3000/questions/${id}`, {
+            const response = yield fetch(`https://tt-production-0f24.up.railway.app/questions/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

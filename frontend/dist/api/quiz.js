@@ -1,6 +1,6 @@
 async function fetchQuestions() {
     try {
-        const response = await fetch('http://localhost:3000/questions');//http://localhost:3000/questions
+        const response = await fetch('http://tt-production-0f24.up.railway.app/questions');//http://localhost:3000/questions
         if (!response.ok) {
             throw new Error('Failed to fetch questions');
         }

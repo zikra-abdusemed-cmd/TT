@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/questions'; // http://localhost:3000/questions/2
+const apiUrl = 'http://tt-production-0f24.up.railway.app/questions'; // http://localhost:3000/questions/2
 
 // Fetch quiz by ID
 document.getElementById('fetchQuiz').addEventListener('click', async () => {
