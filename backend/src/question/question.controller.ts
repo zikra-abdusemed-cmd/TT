@@ -1,6 +1,6 @@
 // src/question/question.controller.ts
 
-import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards, Request, Query } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { Question } from './entity/question.entity';
@@ -22,9 +22,10 @@ export class QuestionController {
     }
 
     // Retrieve all questions (accessible to all users)
+    // Optional query param ?category=NAME to filter by category
     @Get()
-    async findAll(): Promise<Question[]> {
-        return this.questionService.findAll();
+    async findAll(@Query('category') category?: string): Promise<Question[]> {
+        return this.questionService.findAll(category);
     }
 
     // Retrieve a specific question by ID

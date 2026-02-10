@@ -28,7 +28,17 @@
         <!-- Question & Leaderboard Container -->
         <div class="container mt-5 p-4 rounded-3 w-100">
             <div class="content" id="questionList">
-                <h2 class="text-center">Available Questions</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="mb-0">Quiz</h2>
+                    <div class="d-flex gap-2 align-items-center">
+                        <select id="categoryFilter" class="form-select">
+                            <option value="">Select category</option>
+                        </select>
+                        <button id="startQuizBtn" class="btn btn-primary">Start</button>
+                    </div>
+                </div>
+
+                <div id="timer" class="text-end fw-bold mb-2"></div>
                 <div id="questions" class="mt-4"></div>
             </div>
 

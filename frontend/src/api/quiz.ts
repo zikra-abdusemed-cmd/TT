@@ -13,14 +13,26 @@ interface LeaderboardEntry {
     gamesPlayed: number;
 }
 
+let currentQuestions: Question[] = [];
+let currentIndex = 0;
+let timerId: number | undefined;
+let remainingSeconds = 30;
+
 async function fetchQuestions(): Promise<void> {
+    const categorySelect = document.getElementById('categoryFilter') as HTMLSelectElement | null;
+    const selectedCategory = categorySelect?.value || '';
+
+    const query = selectedCategory ? `?category=${encodeURIComponent(selectedCategory)}` : '';
+
     try {
-        const response = await fetch(`${API_BASE_URL}/questions`); // Fetch questions from the backend
+        const response = await fetch(`${API_BASE_URL}/questions${query}`); // Fetch questions from the backend
         if (!response.ok) {
             throw new Error('Failed to fetch questions');
         }
         const questions: Question[] = await response.json();
-        displayQuestions(questions);
+        currentQuestions = questions;
+        currentIndex = 0;
+        showCurrentQuestion();
     } catch (error) {
         console.error('Error fetching questions:', error);
         const questionsContainer = document.getElementById('questions') as HTMLElement;
@@ -28,32 +40,81 @@ async function fetchQuestions(): Promise<void> {
     }
 }
 
-function displayQuestions(questions: Question[]): void {
+function showCurrentQuestion(): void {
     const questionsContainer = document.getElementById('questions') as HTMLElement;
     questionsContainer.innerHTML = ''; // Clear previous questions
 
-    questions.forEach((question) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'border rounded p-3 mb-3 bg-light';
+    if (!currentQuestions.length) {
+        questionsContainer.innerHTML = '<p class="text-muted text-center">No questions for this category.</p>';
+        stopTimer();
+        updateTimerDisplay();
+        return;
+    }
 
-        const questionText = document.createElement('p');
-        questionText.className = 'question text-black';
-        questionText.innerText = `${question.id}. ${question.content}`;
+    if (currentIndex >= currentQuestions.length) {
+        questionsContainer.innerHTML = '<p class="text-center fw-bold">Quiz complete! 🎉</p>';
+        stopTimer();
+        updateTimerDisplay();
+        return;
+    }
 
-        const choicesDiv = document.createElement('div');
-        choicesDiv.className = 'choices d-flex flex-column mt-2';
+    const question = currentQuestions[currentIndex];
 
-        question.options.forEach((option) => {
-            const choiceDiv = document.createElement('div');
-            choiceDiv.className = 'choice-style text-center rounded shadow-lg p-3 mb-2';
-            choiceDiv.innerText = option;
-            choicesDiv.appendChild(choiceDiv);
-        });
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'border rounded p-3 mb-3 bg-light';
 
-        questionDiv.appendChild(questionText);
-        questionDiv.appendChild(choicesDiv);
-        questionsContainer.appendChild(questionDiv);
+    const questionText = document.createElement('p');
+    questionText.className = 'question text-black';
+    questionText.innerText = `${question.id}. ${question.content}`;
+
+    const choicesDiv = document.createElement('div');
+    choicesDiv.className = 'choices d-flex flex-column mt-2';
+
+    question.options.forEach((option) => {
+        const choiceDiv = document.createElement('div');
+        choiceDiv.className = 'choice-style text-center rounded shadow-lg p-3 mb-2';
+        choiceDiv.innerText = option;
+        choicesDiv.appendChild(choiceDiv);
     });
+
+    questionDiv.appendChild(questionText);
+    questionDiv.appendChild(choicesDiv);
+    questionsContainer.appendChild(questionDiv);
+
+    startTimer();
+}
+
+function updateTimerDisplay() {
+    const timerEl = document.getElementById('timer');
+    if (!timerEl) return;
+    if (!currentQuestions.length || currentIndex >= currentQuestions.length) {
+        timerEl.textContent = '';
+        return;
+    }
+    timerEl.textContent = `Time left: ${remainingSeconds}s`;
+}
+
+function startTimer() {
+    stopTimer();
+    remainingSeconds = 30;
+    updateTimerDisplay();
+
+    timerId = window.setInterval(() => {
+        remainingSeconds -= 1;
+        if (remainingSeconds <= 0) {
+            currentIndex += 1;
+            showCurrentQuestion();
+        } else {
+            updateTimerDisplay();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    if (timerId !== undefined) {
+        clearInterval(timerId);
+        timerId = undefined;
+    }
 }
 
 async function fetchLeaderboard(): Promise<void> {
@@ -121,5 +182,36 @@ function displayLeaderboard(entries: LeaderboardEntry[]): void {
 }
 
 // Fetch questions and leaderboard on page load
-fetchQuestions();
-fetchLeaderboard();
+async function initQuizPage() {
+    // Load categories into the filter dropdown
+    const categorySelect = document.getElementById('categoryFilter') as HTMLSelectElement | null;
+    if (categorySelect) {
+        try {
+            const res = await fetch(`${API_BASE_URL}/categories`);
+            if (res.ok) {
+                const categories: { name: string }[] = await res.json();
+                categories.forEach((cat) => {
+                    const opt = document.createElement('option');
+                    opt.value = cat.name;
+                    opt.textContent = cat.name;
+                    categorySelect.appendChild(opt);
+                });
+            }
+        } catch (e) {
+            console.error('Error loading categories for filter', e);
+        }
+    }
+
+    const startBtn = document.getElementById('startQuizBtn');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            currentQuestions = [];
+            currentIndex = 0;
+            fetchQuestions();
+        });
+    }
+
+    fetchLeaderboard();
+}
+
+initQuizPage();

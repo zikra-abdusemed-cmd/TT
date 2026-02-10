@@ -80,8 +80,17 @@
  
                     <!-- Category -->
                     <div class="mb-4">
-                        <label for="category" class="form-label">Category (Optional)</label>
-                        <input type="text" id="category" class="form-control" placeholder="Enter category">
+                        <label class="form-label">Category</label>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <select id="categorySelect" class="form-select">
+                                    <option value="">Select existing category</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="newCategory" class="form-control" placeholder="Or type a new category">
+                            </div>
+                        </div>
                     </div>
  
                     <!-- Submit Button -->
@@ -99,6 +108,24 @@
         // Deployed backend base URL on Railway
         const url = 'https://tt-production-0f24.up.railway.app';
         document.addEventListener('DOMContentLoaded', () => {
+            // Load categories into the select dropdown
+            function loadCategories() {
+                const categorySelect = document.getElementById('categorySelect');
+                fetch(`${url}/categories`)
+                    .then(response => response.json())
+                    .then(categories => {
+                        categories.forEach(cat => {
+                            const option = document.createElement('option');
+                            option.value = cat.name;
+                            option.textContent = cat.name;
+                            categorySelect.appendChild(option);
+                        });
+                    })
+                    .catch(err => {
+                        console.error('Error loading categories', err);
+                    });
+            }
+
             // Function to check authentication and role
             function checkAuth() {
                 const accessToken = localStorage.getItem('accessToken');
@@ -119,6 +146,7 @@
  
             // Call authentication check on page load
             checkAuth();
+            loadCategories();
  
             // Attach logout event listener
             const logoutBtn = document.getElementById('logoutBtn');
@@ -138,7 +166,13 @@
                 const choiceC = document.getElementById('choice-c').value.trim();
                 const choiceD = document.getElementById('choice-d').value.trim();
                 const answer = document.getElementById('answer').value.trim();
-                const category = document.getElementById('category').value.trim();
+                const categorySelect = document.getElementById('categorySelect');
+                const newCategoryInput = document.getElementById('newCategory');
+
+                const selectedCategory = categorySelect.value.trim();
+                const newCategory = newCategoryInput.value.trim();
+
+                const finalCategory = newCategory || selectedCategory || '';
  
                 // Validate that the answer is one of the options
                 const options = [choiceA, choiceB, choiceC, choiceD];
@@ -152,7 +186,7 @@
                     content: question,
                     options: options,
                     correctAnswer: answer,
-                    category: category || undefined // Exclude if empty
+                    category: finalCategory || undefined // Exclude if empty
                 };
  
                 // Send POST request to the backend

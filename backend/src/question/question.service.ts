@@ -22,7 +22,12 @@ export class QuestionService {
     }
 
     // Retrieve all questions (accessible to all users)
-    async findAll(): Promise<Question[]> {
+    async findAll(category?: string): Promise<Question[]> {
+        if (category && category.trim().length > 0) {
+            return this.questionRepository.find({
+                where: { category },
+            });
+        }
         return this.questionRepository.find();
     }
 
